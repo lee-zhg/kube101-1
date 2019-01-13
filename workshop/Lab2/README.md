@@ -147,7 +147,9 @@ To update and roll back:
 
    `$ kubectl describe service guestbook`
    and
-   `$ ibmcloud cs workers <name-of-cluster>`
+   Ask your instructor for the IP address for the IBM Cloud Proxy machine.
+   
+   `[Proxy IP]:[nodeport port]`
 
    To verify that you're running "v2" of guestbook, look at the title of the page,
    it should now be `Guestbook - v2`
