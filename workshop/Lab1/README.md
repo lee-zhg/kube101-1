@@ -8,7 +8,7 @@ If you haven't already:
 1. Open the developer VM. Obtain this IP, plus the IP for the ICP master from your instructor 
 2. Login to the ICP Cluster
 
-   ```$ cloudctl login -a [ICP Master IP]:8443 --skip-ssl-validation```
+   ```$ cloudctl login -a htps://[ICP Master IP]:8443 --skip-ssl-validation```
    
 That's it! We have installed an instance of IBM Cloud Private for you, with a running Kubernetes. You are ready to deploy your first application, `guestbook`.
 
