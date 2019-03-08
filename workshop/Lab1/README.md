@@ -3,22 +3,9 @@
 Learn how to deploy an application to a Kubernetes cluster hosted within
 the IBM Container Service.
 
-# 0. Install Prerequisite CLIs and Provision a Kubernetes Cluster
+# 0. Setup
 
-If you haven't already:
-1. Install the IBM Cloud CLIs and login, as described in [Lab 0](../Lab0/README.md).
-2. Provision a cluster:
-
-   ```$ ibmcloud cs cluster-create --name <name-of-cluster>```
-
-Once the cluster is provisioned, the kubernetes client CLI `kubectl` needs to be
-configured to talk to the provisioned cluster.
-
-1. Run `$ ibmcloud cs cluster-config <name-of-cluster>`, and set the `KUBECONFIG`
-   environment variable based on the output of the command. This will
-   make your `kubectl` client point to your new Kubernetes cluster.
-
-Once your client is configured, you are ready to deploy your first application, `guestbook`.
+If following this lab as part of an IBM instructor led workshop, please follow these instructions to setup your workshop environment: https://gist.github.com/jzaccone/0cdc321e5dc8adb0dca98ca861284c01
 
 # 1. Deploy your application
 
