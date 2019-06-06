@@ -7,17 +7,87 @@ configuration files. The configuration file mechanism allows you to have more
 fine-grained control over all of resources being created within the
 Kubernetes cluster.
 
+# Pre-requisistes
+
+### Clone the Git repo
+
 Before we work with the application we need to clone a github repo:
 
 ```
 $ git clone https://github.com/IBM/guestbook.git
+$ cd guestbook/v1
 ```
 
 This repo contains multiple versions of the guestbook application
 as well as the configuration files we'll use to deploy the pieces of the application.
 
-Change directory by running the command `cd guestbook`. You will find all the
+You should have changed directory by running the command `cd guestbook/v1`. You will find all the
 configurations files for this exercise under the directory `v1`.
+
+### Login to IBM Cloud and Target your Cluster
+
+1.  Open a command window or terminal window.
+
+2.  Log in to IBM Cloud by issuing the following commands.
+    
+    ```
+    ibmcloud login --sso
+    ```
+      or
+
+    ```
+    ibmcloud login
+    ```
+
+3.  After logging in, set your resource group using this command:
+
+    ```
+    ibmcloud target -g AppMod-AA
+    ```
+
+4. View available clusters
+
+    ```
+    ibmcloud ks clusters
+    ```
+   You should have been assigned a user# by the workshop instructor(s). For example, user001-cluster, user002-cluster and etc. Please use your assigned cluster for the remaining of the workshop.
+
+   If you are doing the exercise in a non-workshop environment, you would need to have a Kubernetes cluster in IBM Cloud to complete steps.
+
+5. Identify the public IP address of one of your worker node in your cluster. Write down the IP address for the remaining of the lab.
+
+    ```
+    ibmcloud ks workers user###-cluster
+    ```
+
+   The sample output of the command looks like
+
+   ```
+   ID                                                 Public IP       Private IP      Machine Type        State    Status   Zone    Version   
+   kube-dal12-crbdba56bea49b43e5bc9dbdb764a5bfab-w1   169.61.189.81   10.184.254.55   u2c.2x4.encrypted   normal   Ready    dal12   1.13.6_1524   
+   kube-dal12-crbdba56bea49b43e5bc9dbdb764a5bfab-w2   169.61.189.66   10.184.254.51   u2c.2x4.encrypted   normal   Ready    dal12   1.13.6_1524   
+   ```
+6. Get the command to target your cluster.
+
+    ```
+    ibmcloud cs cluster-config user###-cluster
+    ```
+
+   The command to point to your cluster will be displayed as part of this command output. The sample output of the command looks like
+
+   ```
+   OK
+   The configuration for user001-cluster was downloaded successfully.
+
+   Export environment variables to start using Kubernetes.
+
+   export KUBECONFIG=/Users/lijing@us.ibm.com/.bluemix/plugins/container-service/clusters/user001-cluster/kube-config-dal12-user001-cluster.yml
+   ```
+7. Execute the command to target your cluster. For example,
+
+   ```
+   export KUBECONFIG=/Users/lijing@us.ibm.com/.bluemix/plugins/container-service/clusters/user001-cluster/kube-config-dal12-user001-cluster.yml
+   ```
 
 # 1. Scale apps natively
 
@@ -100,7 +170,7 @@ try to add, or remove, pods from the system to match your request. To can
 make these modifications by using the following command:
 
    ```console
-   $ kubectl edit deployment guestbook
+   $ kubectl edit deployment guestbook-v1
    ```
 
 This will retrieve the latest configuration for the Deployment from the
@@ -277,7 +347,7 @@ port 6379 on the pods selected by the selectors "app=redis" and "role=master".
 - Restart guestbook so that it will find the redis service to use database:
 
     ```console
-    $ kubectl delete deploy guestbook 
+    $ kubectl delete deploy guestbook-v1 
     $ kubectl create -f guestbook-deployment.yaml
     ```
 
@@ -386,7 +456,7 @@ spec:
 
 - Restart guestbook so that it will find the slave service to read from.
     ```console
-    $ kubectl delete deploy guestbook
+    $ kubectl delete deploy guestbook-v1
     $ kubectl create -f guestbook-deployment.yaml
     ```
     
